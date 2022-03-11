@@ -3,6 +3,8 @@ let posts = [];
 const likedPostsId = [];
 const reportedPostsId = [];
 
+let remainingPosts = [];
+
 const getLikedPosts = () => {
   return posts.filter((post) => likedPostsId.includes(post.id));
 };
@@ -18,6 +20,10 @@ const isLiked = (id) => {
 const addToLiked = (id) => {
   likedPostsId.push(id);
   showPosts(posts);
+  const remainingPosts = posts.filter(
+    (post) => !reportedPostsId.includes(post.id)
+  );
+  showPosts(remainingPosts);
 };
 
 const reportPost = (id) => {
@@ -52,7 +58,6 @@ const switchTab = (id) => {
     document.getElementById("posts").style.display = "none";
     document.getElementById("liked").style.display = "none";
     document.getElementById("qna").style.display = "none";
-    
 
     displayReportedPosts();
   }
